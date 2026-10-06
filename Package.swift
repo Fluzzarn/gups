@@ -10,7 +10,7 @@ let package = Package(
         // 💧 A server-side Swift web framework.
         .package(url: "https://github.com/vapor/vapor.git", from: "4.121.4"),
         // 🗄 An ORM for SQL and NoSQL databases.
-        .package(url: "https://github.com/vapor/fluent.git", from: "4.13.0"),
+        .package(url: "https://github.com/vapor/fluent.git", from: "4.12.0"),
         // 🐘 Fluent driver for Postgres.
         .package(url: "https://github.com/vapor/fluent-postgres-driver.git", from: "2.12.0"),
         // 🍃 An expressive, performant, and extensible templating language built for Swift.
