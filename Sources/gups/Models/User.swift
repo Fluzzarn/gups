@@ -17,7 +17,7 @@ final class User: Model, @unchecked Sendable {
     
     
     
-    init(id: UUID? = nil, name: String, cardIds: [String], balance: Int, isSuperUser: Bool = false) {
+    init(id: UUID? = nil, name: String, cardIds: [String]?, balance: Int, isSuperUser: Bool = false) {
         self.id = id
         self.name = name
         self.cardIds = cardIds
@@ -34,22 +34,23 @@ final class User: Model, @unchecked Sendable {
     @Field(key: "name")
     var name: String
     
-    @Field(key: "cardids")
-    var cardIds: [String]
+    @Field(key: "cards")
+    var cardIds: [String]?
     
     @Field(key: "balance")
     var balance: Int
     
     @Field(key: "isSuperUser")
-    var isSuperUser: Bool
+    var isSuperUser: Bool?
 
     init() { }
     
     func toDTO() -> UserDTO {
         .init(
             id: self.id,
-            balance: self.balance, cardids: self.cardIds,
-            isSuperUser: self.isSuperUser
+            balance: self.balance, cardids: self.cardIds ?? [],
+            isSuperUser: self.isSuperUser ?? false,
+            name: self.name
         )
     }
 }

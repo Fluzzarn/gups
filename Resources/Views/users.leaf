@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>#(title)</title>
+</head>
+
+<body>
+  <h1>Users</h1>
+  <div class="container mt-3">
+  
+  <form method="post">
+  <div class="mb-3">
+    <label for="name" class="form-label">User Name</label>
+    <input class="form-control" id="name" name="name">
+  </div>
+  
+  <div class="mb-3">
+    <label for="balance" class="form-label">Starting Balance</label>
+    <input class="form-control" id="balance" name="balance">
+    <div class="form-check">
+  <input class="form-check-input" type="checkbox" id="isSuperUser" name="isSuperUser">
+  <label class="form-check-label" for="isSuperUser">
+    Is Super User
+  </label>
+</div>
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+<ul>
+  #for(user in users):
+    <li>#(user)<li>
+    #endfor
+    </ul>
+</div>
+
+</body>
+<body>#extend("bootstrap")</body>
+</html>

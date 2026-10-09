@@ -6,12 +6,11 @@ func routes(_ app: Application) throws {
     let group = app.grouped(SecretMiddleware())
     group.post("get") { req in
         let request = try req.content.decode(GetRequestModel.self)
-        
-        let user = try await User.query(on: req.db).all().first(where: {$0.cardIds.contains(request.cardid)})
+        let user = try await User.query(on: req.db).all().first(where: {$0.cardIds?.contains(request.cardid) ?? false})
         
         
         if let user = user {
-            if user.isSuperUser {
+            if user.isSuperUser ?? false {
                 return GetResponsetModel(status: 0, balance: "9999")
             }
             
@@ -30,11 +29,11 @@ func routes(_ app: Application) throws {
     
     group.post("consume") { req in
         let request = try req.content.decode(ConsumeRequest.self)
-        let user = try await User.query(on: req.db).all().first(where: {$0.cardIds.contains(request.cardid)})
+        let user = try await User.query(on: req.db).all().first(where: {$0.cardIds?.contains(request.cardid) ?? false})
         let transaction = Transaction(sessionid: request.sessionid, sequence: request.sequence, cardid: request.cardid, value: request.value, detail: request.detail)
         try await transaction.save(on: req.db)
         if let user = user {
-            if user.isSuperUser {
+            if user.isSuperUser ?? false {
                 return ConsumeResponse(status: 0, balance: 9999)
             }
             

@@ -13,6 +13,7 @@ struct UserDTO: Content {
     var balance: Int
     var cardids: [String]
     var isSuperUser: Bool
+    var name:String
     func toModel() -> User {
         let model = User()
         
@@ -20,6 +21,7 @@ struct UserDTO: Content {
         model.balance = self.balance
         model.cardIds = self.cardids
         model.isSuperUser = self.isSuperUser
+        model.name = self.name
         return model
     }
 }

@@ -29,16 +29,17 @@ struct UsersController: RouteCollection {
     }
 
     @Sendable
-    func index(req: Request) async throws -> [UserDTO] {
-        try await User.query(on: req.db).all().map { $0.toDTO() }
+    func index(req: Request) async throws -> View {
+        let users = try await User.query(on: req.db).all().map { $0.toDTO() }
+        return try await req.view.render("users", UsersIndexContext(users: users))
     }
     
     @Sendable
-    func create(req: Request) async throws -> UserDTO {
-        let todo = try req.content.decode(UserDTO.self).toModel()
-
-        try await todo.save(on: req.db)
-        return todo.toDTO()
+    func create(req: Request) async throws -> Response {
+            let todo = try req.content.decode(User.self)
+        todo.cardIds = []
+            try await todo.save(on: req.db)
+        return req.redirect(to: "/users")
     }
 
     @Sendable
